@@ -9,8 +9,8 @@ const multer = require('multer');
 
 // Configuração do diretório de destino dos uploads
 const storage = multer.diskStorage({
- // destination: './src/public', // caminho do arquivo 
- destination: 'd://public', // caminho do arquivo
+ destination: '/home/fabio/Documentos/testesVideos', // caminho do arquivo, esse link funciona no linux
+//  destination: 'd://public', // caminho do arquivo
   filename: function (req, file, cb) {
     cb(null, file.originalname);
 
@@ -33,7 +33,6 @@ const upload = multer({ storage: storage });
 // ...
 
 app.use(upload.single('file')); // 'file' é o nome do campo do formulário para o upload do arquivo
-
 
 
 
