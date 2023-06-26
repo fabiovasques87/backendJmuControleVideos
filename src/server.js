@@ -3,6 +3,24 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const routes = require('./routes');
+require('dotenv').config(); // Usando require em vez de import
+const cors = require('cors');
+
+const server = express();
+
+server.use(bodyParser.json());
+
+
+  server.use(cors());
+
+  server.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+  });
+
 
 
 const multer = require('multer');
@@ -35,16 +53,18 @@ const upload = multer({ storage: storage });
 app.use(upload.single('file')); // 'file' é o nome do campo do formulário para o upload do arquivo
 
 
+app.listen(process.env.PORT, () => {
+     console.log(`Servidor rodando na porta: ${process.env.PORT}`);
+ });
 
-const port = 4000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/', routes);
 
-app.listen(port, () => {
-  console.log(`Servidor iniciado na porta ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Servidor iniciado na porta ${port}`);
+// });
 
 

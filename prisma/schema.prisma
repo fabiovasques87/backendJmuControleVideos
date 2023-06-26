@@ -14,6 +14,7 @@ model processo {
   id               Int      @id @default(autoincrement())
   date_processo    DateTime @default(now())
   numero_processo  Int @unique
+  qtd_arquivos     Int
   nome_escrivao    String
   caminho          String
 } 

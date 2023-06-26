@@ -17,7 +17,7 @@ router.post('/upload', async (req, res) => {
   const fileName = req.file.filename;
 
    //campos adicionais do corpo da solicitação
-   const { nome_escrivao, numero_processo } = req.body;
+   const { nome_escrivao, numero_processo,qtd_arquivos} = req.body;
 
   // Crie o link do arquivo combinando o caminho do pendrive com o nome do arquivo
   const dir = '/home/fabio/Documentos/testesVideos'; //esse link funciona no linux
@@ -28,7 +28,8 @@ router.post('/upload', async (req, res) => {
       data: {
         caminho: linkDoArquivo,
         nome_escrivao,
-        numero_processo: parseInt(numero_processo)
+        numero_processo: parseInt(numero_processo),
+        qtd_arquivos:parseInt(qtd_arquivos)
       }
     });
     console.log('Arquivo salvo:', arquivo);
@@ -91,16 +92,18 @@ router.get('/searchProcesso/:numero_processo', async (req, res) => {
       select: {
         nome_escrivao: true,
         caminho: true,
-        numero_processo: true
+        numero_processo: true,
+        qtd_arquivos: true
       },
     });
 
     if (processo) {
-      const { nome_escrivao, caminho, numero_processo } = processo;
+      const { nome_escrivao, caminho, numero_processo,qtd_arquivos } = processo;
       res.send({
         nome_escrivao,
         caminho,
-        numero_processo
+        numero_processo,
+        qtd_arquivos
         
       });
     } else {
