@@ -11,9 +11,9 @@ datasource db {
 }
 
 model processo {
-  id        Int      @id @default(autoincrement())
-  date_proces DateTime? @default(now())
-  numero_proces Int?
-  nome_escrivao  String?
-  caminho String
-}
+  id               Int      @id @default(autoincrement())
+  date_processo    DateTime @default(now())
+  numero_processo  Int @unique
+  nome_escrivao    String
+  caminho          String
+} 
